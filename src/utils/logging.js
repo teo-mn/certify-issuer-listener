@@ -9,7 +9,8 @@ class logger {
         const logger = winston.createLogger({
             levels: winston.config.syslog.levels,
             level: this.initLogLevel,
-            format: winston.format.cli(),
+            format: winston.format.json(),
+            // format: winston.format.cli(),
             transports: [ new winston.transports.Console() ]
         });
         return logger;
