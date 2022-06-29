@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 require('dotenv').config()
 
 const { Kafka } = require('kafkajs');
@@ -29,6 +27,7 @@ const web3 = new Web3(nodeIpcPath, net);
 async function init() {
     await initKafka();
     let contract;
+    let computedBlock;
 
     try {
         contract = new web3.eth.Contract(smartContractAbi, smartContractAddress);
@@ -37,7 +36,7 @@ async function init() {
         let historicalBlock = latestBlock - 1000;
         log.logging().debug(`[CRX] latest: ${latestBlock}, historical_block: ${historicalBlock}`);
 
-        let computedBlock = await readCachedBlockNumber();
+        computedBlock = await readCachedBlockNumber();
         if (computedBlock) {
             log.logging().info(`[SC] Listen events from cache(latest cached block number + 1): ${computedBlock + 1}`);
         } else {
