@@ -22,7 +22,7 @@ const smartContractAbi = require('./src/contracts/UniversityDiploma.json');
 const smartContractAddress = process.env.SMART_CONTRACT_ADDRESS;
 const nodeIpcPath = process.env.NODE_IPC_PATH;
 
-const web3 = new Web3(nodeIpcPath, net);
+const web3 = new Web3(nodeIpcPath);
 
 async function init() {
     await initKafka();
@@ -46,14 +46,14 @@ async function init() {
     } catch (error) {
         console.error(error);
         process.exit(1);
-    } 
+    }
 
     // Эвентийг сонсох хэсэг
     contract.events.Issued({
         fromBlock: computedBlock + 1,
     }, async (error, event) => {
-        if (error) log.logging().error(error);
-        await getTransferDetails(event);
+        if (error) console.error(error);
+        else await getTransferDetails(event);
     }).on('error', (error, receipt) => {
         log.logging().error(error);
         log.logging().debug(receipt);
