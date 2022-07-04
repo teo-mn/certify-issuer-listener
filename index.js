@@ -50,7 +50,8 @@ async function init() {
 
     // Эвентийг сонсох хэсэг
     contract.events.Issued({
-        fromBlock: computedBlock + 1,
+        // fromBlock: computedBlock + 1,
+        fromBlock: 0,
     }, async (error, event) => {
         if (error) console.error(error);
         else await getTransferDetails(event);
@@ -68,7 +69,7 @@ async function getTransferDetails(dataEvent) {
         blockNumber: dataEvent.blockNumber,
         issuer: dataEvent[ 'returnValues' ][ 'issuer' ],
         hash: dataEvent[ 'returnValues' ][ 'hash' ],
-        imageHash: dataEvent[ 'returnValues' ][ 'imageHash' ],
+        metaHash: dataEvent[ 'returnValues' ][ 'metaHash' ],
         certNum: dataEvent[ 'returnValues' ][ 'certNum' ],
         timestamp: dataEvent[ 'returnValues' ][ 'timestamp' ]
     };

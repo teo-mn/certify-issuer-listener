@@ -98,7 +98,7 @@
       {
         "indexed": false,
         "internalType": "string",
-        "name": "imageHash",
+        "name": "metaHash",
         "type": "string"
       },
       {
@@ -268,6 +268,40 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "name": "approveInfos",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "hash",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "isApproved",
+        "type": "bool"
+      },
+      {
+        "internalType": "address",
+        "name": "approverAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "approvedAt",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "approver",
     "outputs": [
@@ -339,70 +373,6 @@
         "internalType": "string",
         "name": "txid",
         "type": "string"
-      },
-      {
-        "components": [
-          {
-            "internalType": "string",
-            "name": "hash",
-            "type": "string"
-          },
-          {
-            "internalType": "bool",
-            "name": "isRevoked",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "revokerAddress",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "revokerName",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "description",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "revokedAt",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct UniversityDiploma.RevokeInfo",
-        "name": "revokeInfo",
-        "type": "tuple"
-      },
-      {
-        "components": [
-          {
-            "internalType": "string",
-            "name": "hash",
-            "type": "string"
-          },
-          {
-            "internalType": "bool",
-            "name": "isApproved",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "approverAddress",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "approvedAt",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct UniversityDiploma.ApproveInfo",
-        "name": "approveInfo",
-        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -453,6 +423,47 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "hash",
+        "type": "string"
+      }
+    ],
+    "name": "getApproveInfo",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "hash",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "isApproved",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "approverAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "approvedAt",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct UniversityDiploma.ApproveInfo",
+        "name": "",
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -519,70 +530,6 @@
             "internalType": "string",
             "name": "txid",
             "type": "string"
-          },
-          {
-            "components": [
-              {
-                "internalType": "string",
-                "name": "hash",
-                "type": "string"
-              },
-              {
-                "internalType": "bool",
-                "name": "isRevoked",
-                "type": "bool"
-              },
-              {
-                "internalType": "address",
-                "name": "revokerAddress",
-                "type": "address"
-              },
-              {
-                "internalType": "string",
-                "name": "revokerName",
-                "type": "string"
-              },
-              {
-                "internalType": "string",
-                "name": "description",
-                "type": "string"
-              },
-              {
-                "internalType": "uint256",
-                "name": "revokedAt",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct UniversityDiploma.RevokeInfo",
-            "name": "revokeInfo",
-            "type": "tuple"
-          },
-          {
-            "components": [
-              {
-                "internalType": "string",
-                "name": "hash",
-                "type": "string"
-              },
-              {
-                "internalType": "bool",
-                "name": "isApproved",
-                "type": "bool"
-              },
-              {
-                "internalType": "address",
-                "name": "approverAddress",
-                "type": "address"
-              },
-              {
-                "internalType": "uint256",
-                "name": "approvedAt",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct UniversityDiploma.ApproveInfo",
-            "name": "approveInfo",
-            "type": "tuple"
           }
         ],
         "internalType": "struct UniversityDiploma.Certification",
@@ -654,70 +601,6 @@
             "internalType": "string",
             "name": "txid",
             "type": "string"
-          },
-          {
-            "components": [
-              {
-                "internalType": "string",
-                "name": "hash",
-                "type": "string"
-              },
-              {
-                "internalType": "bool",
-                "name": "isRevoked",
-                "type": "bool"
-              },
-              {
-                "internalType": "address",
-                "name": "revokerAddress",
-                "type": "address"
-              },
-              {
-                "internalType": "string",
-                "name": "revokerName",
-                "type": "string"
-              },
-              {
-                "internalType": "string",
-                "name": "description",
-                "type": "string"
-              },
-              {
-                "internalType": "uint256",
-                "name": "revokedAt",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct UniversityDiploma.RevokeInfo",
-            "name": "revokeInfo",
-            "type": "tuple"
-          },
-          {
-            "components": [
-              {
-                "internalType": "string",
-                "name": "hash",
-                "type": "string"
-              },
-              {
-                "internalType": "bool",
-                "name": "isApproved",
-                "type": "bool"
-              },
-              {
-                "internalType": "address",
-                "name": "approverAddress",
-                "type": "address"
-              },
-              {
-                "internalType": "uint256",
-                "name": "approvedAt",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct UniversityDiploma.ApproveInfo",
-            "name": "approveInfo",
-            "type": "tuple"
           }
         ],
         "internalType": "struct UniversityDiploma.Certification",
@@ -819,6 +702,57 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "hash",
+        "type": "string"
+      }
+    ],
+    "name": "getRevokeInfo",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "hash",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "isRevoked",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "revokerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "revokerName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "revokedAt",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct UniversityDiploma.RevokeInfo",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "id",
     "outputs": [
@@ -910,70 +844,6 @@
         "internalType": "string",
         "name": "txid",
         "type": "string"
-      },
-      {
-        "components": [
-          {
-            "internalType": "string",
-            "name": "hash",
-            "type": "string"
-          },
-          {
-            "internalType": "bool",
-            "name": "isRevoked",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "revokerAddress",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "revokerName",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "description",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "revokedAt",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct UniversityDiploma.RevokeInfo",
-        "name": "revokeInfo",
-        "type": "tuple"
-      },
-      {
-        "components": [
-          {
-            "internalType": "string",
-            "name": "hash",
-            "type": "string"
-          },
-          {
-            "internalType": "bool",
-            "name": "isApproved",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "approverAddress",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "approvedAt",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct UniversityDiploma.ApproveInfo",
-        "name": "approveInfo",
-        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -1015,6 +885,50 @@
     "name": "revoke",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "name": "revokeInfos",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "hash",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "isRevoked",
+        "type": "bool"
+      },
+      {
+        "internalType": "address",
+        "name": "revokerAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "revokerName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "revokedAt",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
