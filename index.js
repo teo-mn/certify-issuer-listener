@@ -22,7 +22,12 @@ const smartContractAbi = require('./src/contracts/UniversityDiploma.json');
 const smartContractAddress = process.env.SMART_CONTRACT_ADDRESS;
 const nodeIpcPath = process.env.NODE_IPC_PATH;
 
-const web3 = new Web3(nodeIpcPath);
+let web3;
+
+if(nodeIpcPath.includes('.ipc'))
+  web3 = new Web3(nodeIpcPath, net);
+else
+  web3 = new Web3(nodeIpcPath);
 
 async function init() {
     await initKafka();
