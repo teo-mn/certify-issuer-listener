@@ -18,3 +18,17 @@ contract.events.Issued({
 }
 ```
 
+## Kafka -руу явуулж буй өгөгдлийн бүтэц:
+Өгөгдлийг явуулахдаа value гэсэн объектод JSON.stringify хийж явуулж байгаа.
+
+```json
+  message: {
+    blockNumber: integer,
+    issuer: string,
+    hash: string,
+    metaHash: string,
+    certNum: string,
+    timestamp: string
+  }
+```
+
