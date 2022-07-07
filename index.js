@@ -55,8 +55,7 @@ async function init() {
 
     // Эвентийг сонсох хэсэг
     contract.events.Issued({
-        // fromBlock: computedBlock + 1,
-        fromBlock: 0,
+        fromBlock: computedBlock + 1,
     }, async (error, event) => {
         if (error) console.error(error);
         else await getTransferDetails(event);
@@ -107,15 +106,18 @@ async function initKafka() {
     const admin = kafka.admin();
     try {
         await admin.connect();
-        await admin.createTopics({
+        const list = await admin.listTopics();
+        if (!list.find(item => item === topicName)) {
+          await admin.createTopics({
             waitForLeaders: true,
             topics: [
-                {
-                    topic: topicName,
-                    replicationFactor: 3
-                }
+              {
+                topic: topicName,
+                replicationFactor: 3
+              }
             ],
-        });
+          });
+        }
     } catch(error) {
         log.logging().error(error);
     }
