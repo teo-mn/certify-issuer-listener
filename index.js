@@ -56,8 +56,7 @@ async function init() {
 
     // Эвентийг сонсох хэсэг
     contract.events.Issued({
-        //fromBlock: computedBlock + 1,
-        fromBlock: 0,
+        fromBlock: computedBlock + 1,
     }, async (error, event) => {
         if (error) console.error(error);
         else await getTransferDetails(event);
