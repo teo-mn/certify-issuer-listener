@@ -24,10 +24,11 @@ const nodeIpcPath = process.env.NODE_IPC_PATH;
 
 let web3;
 
-if(nodeIpcPath.includes('.ipc'))
-  web3 = new Web3(nodeIpcPath, net);
-else
-  web3 = new Web3(nodeIpcPath);
+if (nodeIpcPath.includes('.ipc')) {
+    web3 = new Web3(nodeIpcPath, net);
+} else {
+    web3 = new Web3(nodeIpcPath);
+}
 
 async function init() {
     await initKafka();
@@ -55,7 +56,8 @@ async function init() {
 
     // Эвентийг сонсох хэсэг
     contract.events.Issued({
-        fromBlock: computedBlock + 1,
+        //fromBlock: computedBlock + 1,
+        fromBlock: 0,
     }, async (error, event) => {
         if (error) console.error(error);
         else await getTransferDetails(event);
@@ -66,7 +68,7 @@ async function init() {
 }
 
 async function getTransferDetails(dataEvent) {
-    log.logging().info(`[SC] new event at block number: ${dataEvent.blockNumber},`);
+    log.logging().info(`[SC] new event at block number: ${dataEvent.blockNumber}`);
     log.logging().debug(`[SC] event details: ${JSON.stringify(dataEvent['returnValues'])}`);
 
     let message = {
@@ -92,8 +94,7 @@ async function messageProducer(message) {
             ],
         });
 
-        log.logging().debug(`[KAFKA] Published message:`);
-        log.logging().debug(`[KAFKA] ${JSON.stringify(responses)}`);
+        log.logging().debug(`[KAFKA] Published message: ${JSON.stringify(responses)}`);
 
         cacheBlockNumber(message.blockNumber);
     }  catch(error) {
@@ -112,8 +113,7 @@ async function initKafka() {
             waitForLeaders: true,
             topics: [
               {
-                topic: topicName,
-                replicationFactor: 3
+                topic: topicName
               }
             ],
           });
