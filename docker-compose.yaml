@@ -1,0 +1,13 @@
+version: '3'
+services:
+  certify-issuer-listener:
+    container_name: certify-issuer-listener
+    command: ["node", "index.js"]
+    # command: ["node", "index.js", "--verbose"]
+    restart: always
+    image: corexchain/certify-issuer-listener
+    env_file:
+      - "./.env"
+    volumes:
+      - "./block_numbers:/usr/src/node-app/block_numbers"
+
