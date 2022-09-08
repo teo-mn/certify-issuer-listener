@@ -25,7 +25,7 @@ const nodeIpcPath = process.env.NODE_IPC_PATH;
 let web3;
 
 if (nodeIpcPath.includes('.ipc')) {
-    web3 = new Web3(nodeIpcPath, net);
+    web3 = new Web3(new Web3.providers.IpcProvider(nodeIpcPath, net));
 } else {
     web3 = new Web3(nodeIpcPath);
 }
