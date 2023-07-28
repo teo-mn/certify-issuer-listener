@@ -34,24 +34,34 @@ async function init() {
     await initKafka();
     let contract;
     let computedBlock;
+    let latestBlock = 0;
+    const blockSize = parseInt(process.env.BLOCK_SIZE) || 1000;
 
     try {
         contract = new web3.eth.Contract(smartContractAbi, smartContractAddress);
 
-        let latestBlock = await web3.eth.getBlockNumber();
-        let historicalBlock = latestBlock - 1000;
-        log.logging().debug(`[CRX] latest: ${latestBlock}, historical_block: ${historicalBlock}`);
+        latestBlock = await web3.eth.getBlockNumber();
+        log.logging().debug(`[CRX] latest: ${latestBlock}`);
 
         computedBlock = await readCachedBlockNumber();
         if (computedBlock) {
             log.logging().info(`[SC] Listen events from cache(latest cached block number + 1): ${computedBlock + 1}`);
         } else {
-            computedBlock = historicalBlock + 1;
+            computedBlock = 1;
             log.logging().info(`[SC] Listen events from historical_block + 1:  ${computedBlock}`);
         }
     } catch (error) {
         console.error(error);
         process.exit(1);
+    }
+
+    while (latestBlock - computedBlock > blockSize) {
+      log.logging().info(`[SC] Parse events from : ${computedBlock + 1} to: ${computedBlock + blockSize}`);
+      const data = await contract.getPastEvents('Issued', {fromBlock: computedBlock + 1, toBlock: computedBlock + blockSize});
+      for (const item of data) {
+        await getTransferDetails(item);
+      }
+      computedBlock = computedBlock + blockSize;
     }
 
     // Эвентийг сонсох хэсэг
@@ -95,7 +105,7 @@ async function messageProducer(message) {
 
         log.logging().debug(`[KAFKA] Published message: ${JSON.stringify(responses)}`);
 
-        cacheBlockNumber(message.blockNumber);
+        await cacheBlockNumber(message.blockNumber);
     }  catch(error) {
         log.logging().error(error);
     }
